@@ -2,7 +2,6 @@ import strawberry
 
 @strawberry.type
 class Article:
+    id: str
     title: str
-    author: str
-    publication_date: str
     # ... other fields
