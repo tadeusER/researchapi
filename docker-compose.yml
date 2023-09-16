@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DEBUG=True
+      # Otras variables de entorno que necesites
+
+# Si en el futuro necesitas añadir otros servicios, como una base de datos, puedes hacerlo aquí.
+# Por ejemplo:
+# db:
+#   image: postgres:13
+#   environment:
+#     - POSTGRES_USER=myuser
+#     - POSTGRES_PASSWORD=mypassword
+#     - POSTGRES_DB=mydatabase
