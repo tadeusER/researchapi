@@ -1,9 +1,9 @@
 # main.py
 from fastapi import FastAPI
-from api.fecade import Query
 from strawberry.asgi import GraphQL
+from bgraphql.resolvers import Query
 
-from api.routes import router as api_router
+from bgraphql.routes import router as api_router
 
 import strawberry
 

@@ -4,9 +4,12 @@ from pathlib import Path
 # Obtiene el directorio raíz del proyecto
 project_root = Path(__file__).parent.parent.absolute()
 
-print(f"Archivo conftest.py se está ejecutando en: {Path(__file__).parent.absolute()}")
-print(f"Agregando el siguiente directorio al sys.path: {project_root}")
+# Verifica si el directorio raíz ya está en sys.path
+if str(project_root) not in sys.path:
+    sys.path.append(str(project_root))
 
-# Añade el directorio raíz del proyecto al sys.path
-sys.path.append(str(project_root))
+# Imprime mensajes para verificar que todo está funcionando
+print(f"Archivo conftest.py se está ejecutando en: {Path(__file__).parent.absolute()}")
+print(f"Directorio raíz del proyecto: {project_root}")
+print(f"sys.path actualizado: {sys.path}")
 

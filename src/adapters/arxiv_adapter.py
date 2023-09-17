@@ -1,10 +1,12 @@
 
+from typing import List, Optional
 import urllib.parse
 import time
 from adapters.base_adapter import BaseAdapter
 import feedparser
+from models.article import Article
 
-from models.response_arxiv import ArxivResponse
+from models.response_arxiv import ArxivResponse, Entry
 
 class ArxivAPI(BaseAdapter):
     BASE_URL = 'http://export.arxiv.org/api/query'
@@ -16,7 +18,11 @@ class ArxivAPI(BaseAdapter):
             'start': 0,
             'max_results': 10
         }
-
+    def reset_parameters(self):
+        self.parameters = {
+            'start': 0,
+            'max_results': 10
+        }
     def add_field_search(self, field, term):
         term = urllib.parse.quote(term)
         if 'search_query' in self.parameters:
@@ -24,7 +30,14 @@ class ArxivAPI(BaseAdapter):
         else:
             self.parameters['search_query'] = f"{field}:{term}"
         return self
-
+    def map_to_article(self, response: ArxivResponse) -> List[Article]:
+        articles = []
+        for entry in response.entries:
+            try:
+                articles.append(Article.from_arxiv_entry(entry))
+            except Exception as e:
+                self.logger.error(f"Error al transformar la entrada: {entry}. Detalles del error: {str(e)}")
+        return articles
     def set_id_list(self, id_list):
         self.parameters['id_list'] = ','.join(id_list)
         return self
@@ -66,15 +79,16 @@ class ArxivAPI(BaseAdapter):
         res = ArxivResponse.from_dict(response)
         return res
     
-    def search(self, query: str):
+    def search(self, query: str) -> ArxivResponse:
         """Perform a single search with the provided query."""
         self.logger.debug(f"Starting search with query: {query}")
         self.add_field_search("all", query)
         response = self.execute_search()
         self.logger.debug(f"Finished search for query: {query}")
+        self.reset_parameters()
         return self._parse_response(response)
 
-    def get_article(self, article_id: str):
+    def get_article(self, article_id: str) -> Optional[Entry]:
         """Obtiene un artículo específico basado en su ID."""
         self.logger.debug(f"Fetching article with ID: {article_id}")
         self.set_id_list([article_id])
@@ -82,23 +96,16 @@ class ArxivAPI(BaseAdapter):
         self.logger.debug(f"Retrieved article with ID: {article_id}")
         articles_response = self._parse_response(response)
         return articles_response.entries[0] if articles_response.entries else None
-    def multiple_search(self, query: str, total_results: int):
-        """Realiza múltiples búsquedas hasta obtener el número total deseado de resultados."""
-        articles = []
-        current_start = 0
-        while len(articles) < total_results:
-            self.set_start(current_start)
-            response = self.execute_search()
-            articles.extend(self._parse_response(response))
-            current_start += self.parameters['max_results']
+    def multiple_search(self, queries: List[str]) -> List[ArxivResponse]:
+        """Realiza múltiples búsquedas basadas en una lista de consultas y devuelve los resultados."""
+        responses = []
 
-            if len(articles) >= total_results:
-                return articles[:total_results]  # return only the desired number of articles
+        for query in queries:
+            arxiv_response = self.search(query)
+            responses.append(arxiv_response)
 
-            if len(self._parse_response(response)) == 0:  # stop if there are no more results
-                break
+        return responses
 
-        return articles
     
 if __name__=="__main__":
     api = ArxivAPI()
