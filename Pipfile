@@ -12,6 +12,9 @@ pytest-asyncio = "*"
 httpx = "*"
 requests = "*"
 requests-mock = "*"
+feedparser = "*"
+lxml = "*"
+xmltodict = "*"
 
 [dev-packages]
 

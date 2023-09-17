@@ -1,8 +1,10 @@
-import requests
+
 import urllib.parse
 import time
-import xml.etree.ElementTree as ET
 from adapters.base_adapter import BaseAdapter
+import feedparser
+
+from models.response_arxiv import ArxivResponse
 
 class ArxivAPI(BaseAdapter):
     BASE_URL = 'http://export.arxiv.org/api/query'
@@ -47,31 +49,23 @@ class ArxivAPI(BaseAdapter):
 
     def execute_search(self, method="GET"):
         if method.upper() == "GET":
-            response = requests.get(self.BASE_URL, params=self.parameters)
+            # Convertir los parámetros a cadena de consulta
+            query_string = urllib.parse.urlencode(self.parameters)
+            full_url = f"{self.BASE_URL}?{query_string}"
+            self.logger.info(f"Request URL: {full_url}")
+            response = urllib.request.urlopen(full_url)
         else: # POST request
-            response = requests.post(self.BASE_URL, data=self.parameters)
-        self.logger.info(f"Request URL: {response.url}")
+            # Aquí asumiré que los parámetros son enviados como un formulario codificado en formato x-www-form-urlencoded
+            data_encoded = urllib.parse.urlencode(self.parameters).encode('utf-8')
+            response = urllib.request.urlopen(self.BASE_URL, data=data_encoded)
+
+        feed = feedparser.parse(response.read().decode('utf-8'))
         time.sleep(3)  # Wait for 3 seconds before another API request to be kind to the server
-        return response.text
-
-    def _parse_response(self, xml_content):
-        root = ET.fromstring(xml_content)
-        articles = []
-        for entry in root.findall('.//entry'):
-            id_elem = entry.find('id')
-            title_elem = entry.find('title')
-            
-            article = {}
-            if id_elem is not None:
-                # Extract the real ID from the URL
-                article['id'] = id_elem.text.split('/')[-1]
-            if title_elem is not None:
-                article['title'] = title_elem.text
-            
-            articles.append(article)
-        
-        return articles
-
+        return feed
+    def _parse_response(self, response: dict):
+        res = ArxivResponse.from_dict(response)
+        return res
+    
     def search(self, query: str):
         """Perform a single search with the provided query."""
         self.logger.debug(f"Starting search with query: {query}")
@@ -86,14 +80,26 @@ class ArxivAPI(BaseAdapter):
         self.set_id_list([article_id])
         response = self.execute_search()
         self.logger.debug(f"Retrieved article with ID: {article_id}")
-        articles = self._parse_response(response)
-        return articles[0] if articles else None
+        articles_response = self._parse_response(response)
+        return articles_response.entries[0] if articles_response.entries else None
+    def multiple_search(self, query: str, total_results: int):
+        """Realiza múltiples búsquedas hasta obtener el número total deseado de resultados."""
+        articles = []
+        current_start = 0
+        while len(articles) < total_results:
+            self.set_start(current_start)
+            response = self.execute_search()
+            articles.extend(self._parse_response(response))
+            current_start += self.parameters['max_results']
 
+            if len(articles) >= total_results:
+                return articles[:total_results]  # return only the desired number of articles
 
+            if len(self._parse_response(response)) == 0:  # stop if there are no more results
+                break
 
-
-
-
+        return articles
+    
 if __name__=="__main__":
     api = ArxivAPI()
     print(api.search("electron thermal conductivity"))  # Realiza una búsqueda única

@@ -1,42 +1,46 @@
 import pytest
+import feedparser
+
 from adapters.arxiv_adapter import ArxivAPI
-import requests_mock
-from adapters.base_adapter import BaseAdapter
+from models.response_arxiv import ArxivResponse
 
-# Los siguientes son endpoints de ejemplo que mockearemos.
-mock_search_url = "http://export.arxiv.org/api/query?start=0&max_results=10&search_query=all%3ASample"
-mock_search_response = """
-<feed>
-  <entry>
-    <id>http://arxiv.org/abs/123</id>
-    <title>Sample Article</title>
-  </entry>
-</feed>
-"""
+# Crear una instancia de ArxivAPI para las pruebas
+api = ArxivAPI()
 
-mock_get_article_url = "http://export.arxiv.org/api/query?id_list=123&start=0&max_results=10"
-mock_get_article_response = """
-<feed>
-  <entry>
-    <id>http://arxiv.org/abs/123</id>
-    <title>Sample Article</title>
-  </entry>
-</feed>
-"""
+def read_sample_response():
+    """Lee un XML de muestra desde un archivo y lo devuelve."""
+    with open("./src/testdata/sample_response_arxiv.xml", "r") as file:
+        return file.read()
 
-@pytest.mark.parametrize("url, response, expected_result", [
-    (mock_search_url, mock_search_response, [{"id": "123", "title": "Sample Article"}]),
-    (mock_get_article_url, mock_get_article_response, {"id": "123", "title": "Sample Article"})
-])
-def test_arxiv_api(url, response, expected_result):
-    with requests_mock.Mocker() as m:
-        m.get(url, text=response)
+@pytest.fixture
+def sample_feed():
+    """Un fixture de pytest que devuelve el feed parseado de la respuesta de muestra."""
+    sample_response = read_sample_response()
+    return feedparser.parse(sample_response)
 
-        api = ArxivAPI()
+def test_parse_response(sample_feed):
+    """Prueba la función _parse_response."""
+    result = api._parse_response(sample_feed)
+    
+    # Asegúrate de que el resultado es una instancia de ArxivResponse
+    assert isinstance(result, ArxivResponse)
+    
+    # Aquí puedes añadir más aserciones basadas en lo que esperas del XML de muestra
+    # Por ejemplo:
+    assert len(result.entries) > 0
+    assert result.bozo is False
+    # ... y así sucesivamente para los otros campos ...
 
-        if "search_query" in url:
-            result = api.search("Sample")
-        else:
-            result = api.get_article("123")
+def test_search(monkeypatch, sample_feed):
+    """Prueba la función search."""
 
-        assert result == expected_result
+    # Mockear la función execute_search para que devuelva el feed de muestra en lugar de hacer una solicitud real
+    def mock_execute_search(*args, **kwargs):
+        return sample_feed
+    
+    monkeypatch.setattr(api, "execute_search", mock_execute_search)
+
+    result = api.search("test query")
+
+    # Asegúrate de que el resultado es una instancia de ArxivResponse
+    assert isinstance(result, ArxivResponse)

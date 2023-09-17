@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <link href="http://arxiv.org/api/query?search_query%3Dall%3Aelectro%26id_list%3D%26start%3D0%26max_results%3D10" rel="self" type="application/atom+xml"/>
+  <title type="html">ArXiv Query: search_query=all:electro&amp;id_list=&amp;start=0&amp;max_results=10</title>
+  <id>http://arxiv.org/api/a7VT14AlPmnS1kEW4kVrxgJ7J88</id>
+  <updated>2023-09-16T00:00:00-04:00</updated>
+  <opensearch:totalResults xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">3957</opensearch:totalResults>
+  <opensearch:startIndex xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">0</opensearch:startIndex>
+  <opensearch:itemsPerPage xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">10</opensearch:itemsPerPage>
+  <entry>
+    <id>http://arxiv.org/abs/1308.4255v1</id>
+    <updated>2013-08-20T08:47:05Z</updated>
+    <published>2013-08-20T08:47:05Z</published>
+    <title>Electro-Osmotic Flow of Semidilute Polyelectrolyte Solutions</title>
+    <summary>  We investigate electro-osmosis in aqueous solutions of polyelectrolytes using
+    mean-field equations. A solution of positively charged polyelectrolytes is
+    confined between two negatively charged planar surfaces, and an electric field
+    is applied parallel to the surfaces. When electrostatic attraction between the
+    polymer and the surface is strong, the polymers adhere to the surface, forming
+    a highly viscous adsorption layer that greatly suppresses the electro-osmosis.
+    Conversely, electro-osmosis is enhanced by depleting the polymers from the
+    surfaces. We also found that the electro-osmotic flow is invertible when the
+    electrostatic potential decays to its bulk value with the opposite sign. These
+    behaviors are well explained by a simple mathematical form of the
+    electro-osmotic coefficient.
+    </summary>
+    <author>
+      <name>Yuki Uematsu</name>
+    </author>
+    <author>
+      <name>Takeaki Araki</name>
+    </author>
+    <arxiv:doi xmlns:arxiv="http://arxiv.org/schemas/atom">10.1063/1.4820236</arxiv:doi>
+    <link title="doi" href="http://dx.doi.org/10.1063/1.4820236" rel="related"/>
+    <arxiv:comment xmlns:arxiv="http://arxiv.org/schemas/atom">9 pages, 9 figures</arxiv:comment>
+    <link href="http://arxiv.org/abs/1308.4255v1" rel="alternate" type="text/html"/>
+    <link title="pdf" href="http://arxiv.org/pdf/1308.4255v1" rel="related" type="application/pdf"/>
+    <arxiv:primary_category xmlns:arxiv="http://arxiv.org/schemas/atom" term="cond-mat.soft" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cond-mat.soft" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.chem-ph" scheme="http://arxiv.org/schemas/atom"/>
+  </entry>
+</feed>
