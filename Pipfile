@@ -15,6 +15,8 @@ requests-mock = "*"
 feedparser = "*"
 lxml = "*"
 xmltodict = "*"
+attrs = "*"
+marshmallow = "*"
 
 [dev-packages]
 

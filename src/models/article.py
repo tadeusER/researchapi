@@ -29,3 +29,35 @@ class Article:
             source="Arxiv",
             doi=getattr(entry, 'arxiv_doi', "not found")
         )
+    @classmethod
+    def from_cambridge_response(cls, response_data: dict) -> "Article":
+        article_data = response_data.get("data")
+        if not article_data:
+            return None
+
+        # Extraer los campos necesarios de article_data
+        article_id = article_data.get("id")
+        title = article_data.get("title")
+        authors = article_data.get("authors", [])
+        summary = article_data.get("abstract", "")
+        published_date = article_data.get("published_date")
+        updated_date = article_data.get("updated_date")
+        link = article_data.get("link")
+        tags = article_data.get("tags", [])
+        doi = article_data.get("doi", "not found")
+
+        # Crear una instancia de Article con los datos extraídos
+        article = cls(
+            id=article_id,
+            title=title,
+            authors=authors,
+            summary=summary,
+            published_date=published_date,
+            updated_date=updated_date,
+            link=link,
+            tags=tags,
+            source="CambridgeAPI",  # Puedes establecer la fuente según sea necesario
+            doi=doi
+        )
+
+        return article

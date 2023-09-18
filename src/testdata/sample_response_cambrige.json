@@ -1,0 +1,292 @@
+{
+    "totalCount": 5,
+    "itemHits": [
+        {
+            "item": {
+                "id": "63877b9a0146eff4b30be303",
+                "doi": "10.33774/miir-2023-tkf3c",
+                "vor": null,
+                "title": "Optimal configuration for communication antenna along a railway line",
+                "abstract": "Solvit’s main task is to provide and maintain stable signal coverage along railway tracks, ensuring quality communications. To do this, the company should design a suitable antenna network in order to guaran- tee good signal coverage while reducing the costs associated with the entire network. In this report we formulate the problem as 0/1 linear optimization models, and report computational results obtained using the models on real data provided by the company.",
+                "contentType": {
+                    "id": "5ce663395846762193c9c430",
+                    "name": "Working Paper"
+                },
+                "categories": [
+                    {
+                        "id": "603f650a0953de235c89eb13",
+                        "name": "Communications & Networks",
+                        "description": ""
+                    }
+                ],
+                "subject": {
+                    "id": "5e68cb1bd1f19d49ce3ac74c",
+                    "name": "Mathematics",
+                    "description": "Discover early research outputs such as working papers, posters and presentations in Mathematics."
+                },
+                "event": {
+                    "id": "632253fbbc257b7085e749d8",
+                    "eventGroup": {
+                        "id": "60907c8a2a6566f2dcb43b91",
+                        "name": "European Study Group with Industry (ESGI)"
+                    },
+                    "title": "ESGI161, Lisbon",
+                    "description": "Study Group ESGI161 was held at the Lisbon School of Engineering, in collaboration with the European Consortium for Mathematics in Industry, the Portuguese Network of Mathematics for Industry and Innovation and the Politécnico de Lisboa.",
+                    "location": "Lisbon School of Engineering, Lisbon, Portugal",
+                    "startDate": "2022-09-05",
+                    "endDate": "2022-09-09",
+                    "createdAt": "2022-09-14T22:21:47.180Z",
+                    "updatedAt": "2023-04-03T16:49:10.750Z",
+                    "bannerAsset": {
+                        "id": "632254729e3332c8b6a0a448",
+                        "mimeType": "image/png",
+                        "fileName": "ESGI161.png",
+                        "fileSizeBytes": 164778,
+                        "smallThumbnail": {
+                            "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event/632253fbbc257b7085e749d8/smallThumb/file.jpg"
+                        },
+                        "mediumThumbnail": {
+                            "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event/632253fbbc257b7085e749d8/mediumThumb/file.jpg"
+                        },
+                        "largeThumbnail": {
+                            "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event/632253fbbc257b7085e749d8/largeThumb/file.jpg"
+                        },
+                        "original": {
+                            "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event/632253fbbc257b7085e749d8/original/file.png"
+                        }
+                    },
+                    "sponsors": [
+                        {
+                            "id": "632254b4be03b2e0e7f677d9",
+                            "url": "https://www.ipl.pt/",
+                            "text": "Politécnico de Lisboa",
+                            "asset": {
+                                "id": "632254d29e3332c8b6a0b5c2",
+                                "mimeType": "image/png",
+                                "fileName": "ipl_logo.png",
+                                "fileSizeBytes": 23515,
+                                "smallThumbnail": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/632254b4be03b2e0e7f677d9/smallThumb/file.jpg"
+                                },
+                                "mediumThumbnail": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/632254b4be03b2e0e7f677d9/mediumThumb/file.jpg"
+                                },
+                                "largeThumbnail": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/632254b4be03b2e0e7f677d9/largeThumb/file.jpg"
+                                },
+                                "original": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/632254b4be03b2e0e7f677d9/original/file.png"
+                                }
+                            }
+                        },
+                        {
+                            "id": "632254d1faf4a4cabd12b7e5",
+                            "url": "https://www.spm.pt/PT-MATHS-IN/",
+                            "text": "PT Maths In - Rede portuguesa de matemática para a indústria e inocação",
+                            "asset": {
+                                "id": "6322552e9e3332c8b6a0c555",
+                                "mimeType": "image/png",
+                                "fileName": "PT_MATHS_IN_Logo2.png",
+                                "fileSizeBytes": 66191,
+                                "smallThumbnail": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/632254d1faf4a4cabd12b7e5/smallThumb/file.jpg"
+                                },
+                                "mediumThumbnail": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/632254d1faf4a4cabd12b7e5/mediumThumb/file.jpg"
+                                },
+                                "largeThumbnail": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/632254d1faf4a4cabd12b7e5/largeThumb/file.jpg"
+                                },
+                                "original": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/632254d1faf4a4cabd12b7e5/original/file.png"
+                                }
+                            }
+                        },
+                        {
+                            "id": "6322548c173b5d83c6fdc21a",
+                            "url": "https://www.isel.pt/",
+                            "text": "ISEL: Instituto Superior de Engenharia de Lisboa",
+                            "asset": {
+                                "id": "632254b49e3332c8b6a0afeb",
+                                "mimeType": "image/png",
+                                "fileName": "isel_logo.png",
+                                "fileSizeBytes": 28903,
+                                "smallThumbnail": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/6322548c173b5d83c6fdc21a/smallThumb/file.jpg"
+                                },
+                                "mediumThumbnail": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/6322548c173b5d83c6fdc21a/mediumThumb/file.jpg"
+                                },
+                                "largeThumbnail": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/6322548c173b5d83c6fdc21a/largeThumb/file.jpg"
+                                },
+                                "original": {
+                                    "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/event_sponsor/6322548c173b5d83c6fdc21a/original/file.png"
+                                }
+                            }
+                        }
+                    ],
+                    "url": null,
+                    "status": "PUBLISHED"
+                },
+                "status": "PUBLISHED",
+                "statusDate": "2023-02-08T12:27:21.815Z",
+                "funders": [
+                    {
+                        "funderId": "",
+                        "name": "FCT - Fundação para Ciência e Tecnologia",
+                        "grantNumber": " UIDB/00324/2020, PTDC/MAT-APL/28118/2017 , POCI-01-0145-FEDER-028118, UIDB/MAT/00297/2020 , UIDP/MAT/00297/2020, UIDB/04728/2020, UIDB/04621/2020, UIDP/04621/2020, UIDB/00144/2020",
+                        "url": null,
+                        "title": null
+                    }
+                ],
+                "authors": [
+                    {
+                        "orcid": "",
+                        "title": "Prof",
+                        "firstName": "Adérito",
+                        "lastName": "Araújo",
+                        "institutions": [
+                            {
+                                "name": "CMUC, Department of Mathematics, University of Coimbra",
+                                "country": "",
+                                "rorId": ""
+                            }
+                        ]
+                    },
+                    {
+                        "orcid": "",
+                        "title": "Prof",
+                        "firstName": "Jorge ",
+                        "lastName": "Cerdeira",
+                        "institutions": [
+                            {
+                                "name": "Center for Mathematics and Applications, Department of Mathematics, NOVA School of Science and Technology",
+                                "country": "",
+                                "rorId": ""
+                            }
+                        ]
+                    },
+                    {
+                        "orcid": "",
+                        "title": "Prof",
+                        "firstName": "Eliana ",
+                        "lastName": "Costa e Silva",
+                        "institutions": [
+                            {
+                                "name": "CIICESI and ESTG, Polytechnic of Porto",
+                                "country": "",
+                                "rorId": ""
+                            }
+                        ]
+                    },
+                    {
+                        "orcid": "0000-0001-9577-0347",
+                        "title": "Prof",
+                        "firstName": "Nuno",
+                        "lastName": "Lopes",
+                        "institutions": [
+                            {
+                                "name": "Instituto Superior de Engenharia de Lisboa",
+                                "country": "",
+                                "rorId": ""
+                            },
+                            {
+                                "name": "CEMAT-ULisboa",
+                                "country": "",
+                                "rorId": ""
+                            }
+                        ]
+                    },
+                    {
+                        "orcid": "",
+                        "title": "Prof",
+                        "firstName": "Ana",
+                        "lastName": "Moura",
+                        "institutions": [
+                            {
+                                "name": "CMUP, University of Porto",
+                                "country": "",
+                                "rorId": ""
+                            },
+                            {
+                                "name": "LEMA-ISEP, Polytechnic of Porto",
+                                "country": "",
+                                "rorId": ""
+                            }
+                        ]
+                    }
+                ],
+                "metrics": [
+                    {
+                        "description": "Abstract Views",
+                        "value": 263
+                    },
+                    {
+                        "description": "Citations",
+                        "value": 0
+                    },
+                    {
+                        "description": "Content Downloads",
+                        "value": 157
+                    }
+                ],
+                "version": "1",
+                "versionRefs": [
+                    {
+                        "version": "1",
+                        "itemId": "63877b9a0146eff4b30be303",
+                        "legacyId": null
+                    }
+                ],
+                "submittedDate": "2023-02-03T08:55:46.154Z",
+                "publishedDate": "2023-02-08T12:27:21.815Z",
+                "approvedDate": "2023-02-08T12:27:21.795Z",
+                "keywords": [
+                    "Railway communications",
+                    "Site positioning",
+                    "Signal coverage",
+                    "Integer linear programming",
+                    "Optimization"
+                ],
+                "hasCompetingInterests": false,
+                "competingInterestsDeclaration": null,
+                "gainedEthicsApproval": "NOT_RELEVANT",
+                "suppItems": [],
+                "asset": {
+                    "id": "63dccbd83e556118360cbe24",
+                    "mimeType": "application/pdf",
+                    "fileName": "ESGI161_Challenge2_Solvit_revised.pdf",
+                    "fileSizeBytes": 2782723,
+                    "smallThumbnail": {
+                        "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/item/63877b9a0146eff4b30be303/smallThumb/optimal-configuration-for-communication-antenna-along-a-railway-line.jpg"
+                    },
+                    "mediumThumbnail": {
+                        "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/item/63877b9a0146eff4b30be303/mediumThumb/optimal-configuration-for-communication-antenna-along-a-railway-line.jpg"
+                    },
+                    "largeThumbnail": {
+                        "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/item/63877b9a0146eff4b30be303/largeThumb/optimal-configuration-for-communication-antenna-along-a-railway-line.jpg"
+                    },
+                    "original": {
+                        "url": "https://www.cambridge.org/engage/api-gateway/miir/assets/orp/resource/item/63877b9a0146eff4b30be303/original/optimal-configuration-for-communication-antenna-along-a-railway-line.pdf"
+                    }
+                },
+                "license": {
+                    "id": "5cc9d9bf7d4e0000ac04ef27",
+                    "name": "All Rights Reserved",
+                    "description": "This means that content is read-only and Site users will only be able to access, read and download the Content for private and personal use. No reuse permitted.",
+                    "url": null
+                },
+                "webLinks": [],
+                "origin": "MIIR",
+                "termsAcceptance": true,
+                "versionNote": "",
+                "latestComments": [],
+                "commentsCount": 0,
+                "isLatestVersion": true,
+                "legacyId": null
+            }
+        }
+
+    ]
+}
