@@ -2,6 +2,7 @@ from typing import List
 import strawberry
 
 from models.response_arxiv import Entry
+from models.response_cambrige import ItemHit
 
 @strawberry.type
 class Article:
@@ -30,34 +31,24 @@ class Article:
             doi=getattr(entry, 'arxiv_doi', "not found")
         )
     @classmethod
-    def from_cambridge_response(cls, response_data: dict) -> "Article":
-        article_data = response_data.get("data")
-        if not article_data:
-            return None
+    def from_cambrige_response(cls, item_hit: ItemHit) -> "Article":
+        authors_names = [f"{author.firstName} {author.lastName}" for author in item_hit.authors]
+        keywords = item_hit.keywords
+        published_date = item_hit.publishedDate.strftime('%Y-%m-%d')
+        approved_date = item_hit.approvedDate.strftime('%Y-%m-%d')
 
-        # Extraer los campos necesarios de article_data
-        article_id = article_data.get("id")
-        title = article_data.get("title")
-        authors = article_data.get("authors", [])
-        summary = article_data.get("abstract", "")
-        published_date = article_data.get("published_date")
-        updated_date = article_data.get("updated_date")
-        link = article_data.get("link")
-        tags = article_data.get("tags", [])
-        doi = article_data.get("doi", "not found")
+        # Assuming the link to the article might be in the asset's URL (this might be different based on the actual data structure)
+        link = item_hit.asset.original.url
 
-        # Crear una instancia de Article con los datos extraídos
-        article = cls(
-            id=article_id,
-            title=title,
-            authors=authors,
-            summary=summary,
+        return cls(
+            id=item_hit.item.get("id", ""),
+            title=item_hit.item.get("title", ""),
+            authors=authors_names,
+            summary=item_hit.item.get("description", ""),
             published_date=published_date,
-            updated_date=updated_date,
+            updated_date=approved_date,  # This might be a different date, adjust as needed
             link=link,
-            tags=tags,
-            source="CambridgeAPI",  # Puedes establecer la fuente según sea necesario
-            doi=doi
+            tags=keywords,
+            source="Cambridge",
+            doi=item_hit.item.get("doi", "not found")  # Adjust based on where the DOI might be
         )
-
-        return article

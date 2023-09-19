@@ -7,8 +7,9 @@ from models.article import Article
 
 class BaseAdapter(ABC):
 
-    def __init__(self):
+    def __init__(self, token: str = ""):
         self.logger = get_logger(self.__class__.__name__)
+        self.token = token
 
     @abstractmethod
     def search(self, query: str):

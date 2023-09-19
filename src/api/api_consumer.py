@@ -1,12 +1,14 @@
 from typing import List
 from adapters.arxiv_adapter import ArxivAPI
 from adapters.base_adapter import BaseAdapter
+from adapters.cambrige_adapter import CambridgeAPI
 from api.fecade import SearchFacade
 from models.article import Article
 
 class ApiConsumer:
     adapters: List[BaseAdapter] = [
-        ArxivAPI()
+        ArxivAPI(),
+        CambridgeAPI()
     ]
     def __init__(self) -> None:
         self.api_search = SearchFacade(self.adapters)
