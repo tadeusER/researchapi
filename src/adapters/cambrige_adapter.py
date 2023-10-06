@@ -41,7 +41,15 @@ class CambridgeAPI(BaseAdapter):
             query_string = urllib.parse.urlencode(self.parameters)
             url = f"{self.BASE_URL}?{query_string}"
         self.logger.info(f"Request URL: {url}")
-        response = urllib.request.urlopen(url)
+        req = urllib.request.Request(
+            url,
+            headers={
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+            }
+        )
+
+        # Pasar el objeto Request a urlopen en lugar de la URL directamente
+        response = urllib.request.urlopen(req)
         data = json.loads(response.read().decode('utf-8'))
         time.sleep(3)  # Espera 3 segundos antes de otra solicitud API
         return data
