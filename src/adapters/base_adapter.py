@@ -51,7 +51,7 @@ class BaseAdapter(ABC):
     def multiple_search(self, queries: List[str]):
         pass
     @abstractmethod
-    def map_to_article(self, response_data) -> Article:
+    def map_to_article(self, response_data) -> List[Article]:
         """
         Convert the specific adapter response data into an Article instance.
 

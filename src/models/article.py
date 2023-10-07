@@ -3,6 +3,7 @@ import strawberry
 
 from models.response_arxiv import Entry
 from models.response_cambrige import ItemHit
+from models.response_springer import Chapter
 
 @strawberry.type
 class Article:
@@ -51,4 +52,23 @@ class Article:
             tags=keywords,
             source="Cambridge",
             doi=item_hit.item.get("doi", "not found")  # Adjust based on where the DOI might be
+        )
+    @classmethod
+    def from_springer_chapter(cls, chapter: Chapter) -> "Article":
+        authors_names = [creator.creator for creator in chapter.creators]
+        published_date = chapter.publication_date
+        # Asumiendo que la fecha de actualización no está disponible en los datos de Springer
+        updated_date = published_date
+
+        return cls(
+            id=chapter.doi,
+            title=chapter.title,
+            authors=authors_names,
+            summary=chapter.abstract,
+            published_date=published_date,
+            updated_date=updated_date,
+            link=chapter.url[0].value if chapter.url else "",
+            tags=chapter.subjects,
+            source="Springer",
+            doi=chapter.doi
         )
