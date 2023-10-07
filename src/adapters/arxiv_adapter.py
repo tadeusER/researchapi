@@ -14,15 +14,11 @@ class ArxivAPI(BaseAdapter):
 
     def __init__(self):
         super().__init__()
-        self.parameters = {
+        self.base_params = {
             'start': 0,
             'max_results': 10
         }
-    def reset_parameters(self):
-        self.parameters = {
-            'start': 0,
-            'max_results': 10
-        }
+        self.reset_parameters()
     def add_field_search(self, field, term):
         term = urllib.parse.quote(term)
         if 'search_query' in self.parameters:

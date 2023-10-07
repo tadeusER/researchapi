@@ -15,26 +15,17 @@ class CambridgeAPI(BaseAdapter):
 
     def __init__(self):
         super().__init__()
-        self.parameters = {
+        self.base_params = {
             'term': "",
             'skip': 0,
             'limit': 10,
             'sort': "PUBLISHED_DATE_DESC"
         }
-
-    def reset_parameters(self):
-        self.parameters = {
-            'term': "",
-            'skip': 0,
-            'limit': 10,
-            'sort': "PUBLISHED_DATE_DESC"
-        }
+        self.reset_parameters()
 
     def set_term(self, term: str):
         self.parameters['term'] = term
         return self
-
-    # ... Aquí puedes agregar más métodos para establecer otros parámetros ...
 
     def execute_search(self, url=None)-> dict:
         if not url:
