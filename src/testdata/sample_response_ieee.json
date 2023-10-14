@@ -1,0 +1,136 @@
+{
+    "total_records": 256121,
+    "total_searched": 6094894,
+    "articles": [
+        {
+            "doi": "10.1109/ROMAN.2009.5326249",
+            "title": "The birth story of robot, IROBIQ for children's tolerance",
+            "publisher": "IEEE",
+            "isbn": "978-1-4244-5081-7",
+            "issn": "1944-9437",
+            "partnum": "09TH9095",
+            "rank": 1,
+            "authors": {
+                "authors": [
+                    {
+                        "affiliation": "Department of Computer Education, Cheongju National University of Education, Cheonghu, Gyeongbuk, South Korea",
+                        "authorUrl": "https://ieeexplore.ieee.org/author/37402419700",
+                        "id": 37402419700,
+                        "full_name": "Jeonghye Han",
+                        "author_order": 1,
+                        "authorAffiliations": {
+                            "authorAffiliation": [
+                                "Department of Computer Education, Cheongju National University of Education, Cheonghu, Gyeongbuk, South Korea"
+                            ]
+                        }
+                    },
+                    {
+                        "affiliation": "Department of English Education, Cheongju National University of Education, South Korea",
+                        "authorUrl": "https://ieeexplore.ieee.org/author/37407234200",
+                        "id": 37407234200,
+                        "full_name": "Seungmin Lee",
+                        "author_order": 2,
+                        "authorAffiliations": {
+                            "authorAffiliation": [
+                                "Department of English Education, Cheongju National University of Education, South Korea"
+                            ]
+                        }
+                    },
+                    {
+                        "affiliation": "Department of Early Childhood, SungKyunKwan University, Seoul, South Korea",
+                        "authorUrl": "https://ieeexplore.ieee.org/author/37407708600",
+                        "id": 37407708600,
+                        "full_name": "Eunja Hyun",
+                        "author_order": 3,
+                        "authorAffiliations": {
+                            "authorAffiliation": [
+                                "Department of Early Childhood, SungKyunKwan University, Seoul, South Korea"
+                            ]
+                        }
+                    },
+                    {
+                        "affiliation": "Yujin Robot Company Limited, Seoul, South Korea",
+                        "authorUrl": "https://ieeexplore.ieee.org/author/37404642000",
+                        "id": 37404642000,
+                        "full_name": "Bokhyun Kang",
+                        "author_order": 4,
+                        "authorAffiliations": {
+                            "authorAffiliation": [
+                                "Yujin Robot Company Limited, Seoul, South Korea"
+                            ]
+                        }
+                    },
+                    {
+                        "affiliation": "Yujin Robot Company Limited, Seoul, South Korea",
+                        "authorUrl": "https://ieeexplore.ieee.org/author/37066202600",
+                        "id": 37066202600,
+                        "full_name": "Kyungchul Shin",
+                        "author_order": 5,
+                        "authorAffiliations": {
+                            "authorAffiliation": [
+                                "Yujin Robot Company Limited, Seoul, South Korea"
+                            ]
+                        }
+                    }
+                ]
+            },
+            "access_type": "LOCKED",
+            "content_type": "Conferences",
+            "abstract": "Lately, there has been increasing field studies harnessing robots for educational purposes. Various studies into teaching assistant robots (or peer tutoring robots), in particular, are proving to be effective tools of language education because robots are remarkably successful in eliminating the affective filter. However, there is decreased in their interaction with children as time passes. The biggest obstacle to the interaction between human beings and robots in field studies using robots is its low-success rate of face and voice. Since the recognition of robots is weak in real environment such as classrooms, this causes some of the children to utterly give up interaction with robots or just ignore them. Hur and Han (2009) found that the robot storytelling was working to increase children' s tolerance toward the failure of recognition of a robot. Children want to know where the robot comes from, how old it is, who makes it, and when it was born, before they listen to it or its storytelling. The birth story of IROBIQ on an innate weak recognition was created as shown in Table 1. And then the movie on birth story of IROBIQ was developed as shown in Figure 2, and then the facial expression, action, display of IROBIQ were added to it. Figure 1 is the scene of telling the birth story.",
+            "article_number": "5326249",
+            "pdf_url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5326249",
+            "html_url": "https://ieeexplore.ieee.org/document/5326249/",
+            "abstract_url": "https://ieeexplore.ieee.org/document/5326249/",
+            "publication_title": "RO-MAN 2009 - The 18th IEEE International Symposium on Robot and Human Interactive Communication",
+            "conference_location": "Toyama, Japan",
+            "conference_dates": "27 Sept.-2 Oct. 2009",
+            "publication_number": 5306517,
+            "is_number": 5326035,
+            "publication_year": 2009,
+            "publication_date": "27 Sept.-2 Oct. 2009",
+            "start_page": "318",
+            "end_page": "318",
+            "citing_paper_count": 5,
+            "citing_patent_count": 0,
+            "download_count": 2306,
+            "insert_date": "20091110",
+            "index_terms": {
+                "ieee_terms": {
+                    "terms": [
+                        "Educational robots",
+                        "Human robot interaction",
+                        "Intelligent robots",
+                        "Educational programs",
+                        "Computer science education",
+                        "Filters",
+                        "Motion pictures",
+                        "Displays",
+                        "Learning systems",
+                        "Conferences"
+                    ]
+                },
+                "author_terms": {
+                    "terms": [
+                        "Teaching Assistant Robot",
+                        "Peer Tutoring Robot",
+                        "Storytelling",
+                        "Affective Filter",
+                        "Robot Storytelling",
+                        "Human Robot Interaction",
+                        "Tolerance"
+                    ]
+                }
+            },
+            "isbn_formats": {
+                "isbns": [
+                    {
+                        "format": "CD",
+                        "value": "978-1-4244-5081-7",
+                        "isbnType": "New-2005"
+                    }
+                ]
+            }
+        }
+
+    ]
+}

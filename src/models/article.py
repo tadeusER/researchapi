@@ -4,7 +4,7 @@ import strawberry
 from models.response_arxiv import Entry
 from models.response_cambrige import ItemHit
 from models.response_springer import Chapter
-
+from models.response_ieee import Article as ArticleIEEE
 @strawberry.type
 class Article:
     id: str
@@ -72,3 +72,25 @@ class Article:
             source="Springer",
             doi=chapter.doi
         )
+    @classmethod
+    def from_ieee_article(cls, article: ArticleIEEE) -> "Article":
+        # Asumiendo que la fecha de actualización no está disponible en los datos de IEEE
+        updated_date = article.insert_date
+        
+        authors_names = [author.full_name for author in article.authors.authors]
+        tags_ieee = article.index_terms.ieee_terms.terms
+        tags_author = article.index_terms.author_terms.terms
+
+        return cls(
+            id=article.doi,
+            title=article.title,
+            authors=authors_names,
+            summary=article.abstract,
+            published_date=article.publication_date,
+            updated_date=updated_date,
+            link=article.pdf_url,
+            tags=tags_ieee + tags_author,
+            source="IEEE",
+            doi=article.doi
+        )
+    
