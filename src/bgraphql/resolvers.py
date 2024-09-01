@@ -2,7 +2,7 @@
 from typing import List
 import strawberry
 from models.article import Article
-from api.api_consumer import ApiConsumer
+from services.api_consumer import ApiConsumer
 _api_consumer = ApiConsumer()
 @strawberry.type
 class Query:

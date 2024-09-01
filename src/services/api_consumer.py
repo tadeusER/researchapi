@@ -4,7 +4,7 @@ from adapters.arxiv_adapter import ArxivAPI
 from adapters.base_adapter import BaseAdapter
 from adapters.cambrige_adapter import CambridgeAPI
 from adapters.springer_adapter import SpringerAdapter
-from api.fecade import SearchFacade
+from services.fecade import SearchFacade
 from models.article import Article
 
 class ApiConsumer:
