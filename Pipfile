@@ -1,24 +1,41 @@
 [[source]]
+name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-name = "pypi"
 
 [packages]
 strawberry-graphql = {extras = ["debug-server"], version = "*"}
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
-pytest = "*"
-pytest-asyncio = "*"
 httpx = "*"
 requests = "*"
-requests-mock = "*"
 feedparser = "*"
 lxml = "*"
 xmltodict = "*"
 attrs = "*"
 marshmallow = "*"
+pydantic-settings = "*"
+tenacity = "*"
 
 [dev-packages]
+# Testing
+pytest = "*"
+pytest-asyncio = "*"
+pytest-cov = "*"
+requests-mock = "*"
+respx = "*"
+
+# Calidad / estático
+ruff = "*"
+mypy = "*"
+
+[scripts]
+run = "uvicorn researchapi.app:app --host 0.0.0.0 --port 8000 --reload"
+test = "pytest -q"
+cov = "pytest --cov=researchapi --cov-report=term-missing"
+lint = "ruff check ."
+format = "ruff check . --fix && ruff format ."
+typecheck = "mypy"
 
 [requires]
-python_version = "3.10"
+python_version = "3.12.10"
