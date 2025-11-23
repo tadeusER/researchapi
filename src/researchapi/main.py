@@ -6,32 +6,22 @@ This module initializes the FastAPI application and all dependencies.
 
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
+import logging
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from infrastructure.config.settings import get_settings
-from infrastructure.config.logging import setup_logging, get_logger, LoggerAdapter
 from presentation.api.health import router as health_router
 from presentation.api.search import router as search_router
 from core.exceptions import ResearchAPIException
 
-
 # Load settings
 settings = get_settings()
 
-# Setup logging
-setup_logging(
-    log_level=settings.logging.log_level,
-    log_format=settings.logging.log_format,
-    log_file=settings.logging.log_file_path if settings.logging.log_file_enabled else None,
-    log_file_max_size=settings.logging.log_file_max_size,
-    log_file_backup_count=settings.logging.log_file_backup_count
-)
-
-# Get logger
-logger = LoggerAdapter(get_logger(__name__))
+# Get FastAPI logger
+logger = logging.getLogger("uvicorn.error")
 
 
 @asynccontextmanager
@@ -43,9 +33,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
     """
     # Startup
     logger.info(
-        "Starting Research API",
-        version=settings.app.app_version,
-        environment=settings.app.app_environment
+        f"Starting Research API - "
+        f"version={settings.app.app_version}, "
+        f"environment={settings.app.app_environment}"
     )
     
     # Initialize dependencies here
@@ -83,14 +73,14 @@ if settings.security.cors_enabled:
 
 # Global exception handler
 @app.exception_handler(ResearchAPIException)
-async def research_api_exception_handler(request, exc: ResearchAPIException):
+async def research_api_exception_handler(request: Request, exc: ResearchAPIException):
     """Handle custom Research API exceptions."""
     logger.error(
-        "Research API Exception",
-        error_code=exc.error_code,
-        message=exc.message,
-        details=exc.details,
-        path=request.url.path
+        f"Research API Exception - "
+        f"error_code={exc.error_code}, "
+        f"message={exc.message}, "
+        f"details={exc.details}, "
+        f"path={request.url.path}"
     )
     
     return JSONResponse(
@@ -100,13 +90,13 @@ async def research_api_exception_handler(request, exc: ResearchAPIException):
 
 
 @app.exception_handler(Exception)
-async def global_exception_handler(request, exc: Exception):
+async def global_exception_handler(request: Request, exc: Exception):
     """Handle unexpected exceptions."""
     logger.critical(
-        "Unhandled exception",
-        error=str(exc),
-        error_type=type(exc).__name__,
-        path=request.url.path
+        f"Unhandled exception - "
+        f"error={str(exc)}, "
+        f"error_type={type(exc).__name__}, "
+        f"path={request.url.path}"
     )
     
     return JSONResponse(

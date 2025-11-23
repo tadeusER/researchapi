@@ -16,16 +16,14 @@ attrs = "*"
 marshmallow = "*"
 pydantic-settings = "*"
 tenacity = "*"
+structlog = "*"
 
 [dev-packages]
-# Testing
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
 requests-mock = "*"
 respx = "*"
-
-# Calidad / estático
 ruff = "*"
 mypy = "*"
 
