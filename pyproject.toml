@@ -1,0 +1,25 @@
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --strict-markers --disable-warnings --maxfail=1 --cov=researchapi --cov-report=term-missing"
+testpaths = ["src/researchapi/tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["src/researchapi"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+select = ["E","F","I","UP","B"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+ignore_missing_imports = true
+packages = ["researchapi"]
