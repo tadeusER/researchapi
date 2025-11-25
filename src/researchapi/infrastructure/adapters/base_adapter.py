@@ -6,10 +6,10 @@ from abc import abstractmethod
 from typing import Optional
 import asyncio
 
-from core.interfaces import IArticleAdapter, IHTTPClient, ILogger
+from core.interfaces import IArticleAdapter, IHTTPClient
 from core.entities import Article, SearchQuery, SearchResult, SourceType
 from core.exceptions import AdapterException
-
+import logging 
 
 class BaseAdapter(IArticleAdapter):
     """
@@ -21,7 +21,7 @@ class BaseAdapter(IArticleAdapter):
     def __init__(
         self,
         http_client: IHTTPClient,
-        logger: ILogger,
+        logger: logging.Logger,
         source_type: SourceType,
         base_url: str,
         api_key: Optional[str] = None,
@@ -58,7 +58,7 @@ class BaseAdapter(IArticleAdapter):
         return True
 
     @property
-    def logger(self) -> ILogger:
+    def get_logger(self) -> logging.Logger:
         """Get logger instance."""
         return self._logger
 
