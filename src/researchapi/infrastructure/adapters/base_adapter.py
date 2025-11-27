@@ -6,9 +6,9 @@ from abc import abstractmethod
 from typing import Optional
 import asyncio
 
-from core.interfaces import IArticleAdapter, IHTTPClient
-from core.entities import Article, SearchQuery, SearchResult, SourceType
-from core.exceptions import AdapterException
+from researchapi.core.interfaces import IArticleAdapter, IHTTPClient
+from researchapi.core.entities import Article, SearchQuery, SearchResult, SourceType
+from researchapi.core.exceptions import AdapterException
 import logging 
 
 class BaseAdapter(IArticleAdapter):

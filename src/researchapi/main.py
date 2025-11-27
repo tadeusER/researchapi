@@ -12,10 +12,10 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from infrastructure.config.settings import get_settings
-from presentation.api.health import router as health_router
-from presentation.api.search import router as search_router
-from core.exceptions import ResearchAPIException
+from researchapi.infrastructure.config.settings import get_settings
+from researchapi.presentation.api.health import router as health_router
+from researchapi.presentation.api.search import router as search_router
+from researchapi.core.exceptions import ResearchAPIException
 
 # Load settings
 settings = get_settings()

@@ -4,11 +4,11 @@ Health check endpoints for monitoring.
 
 from typing import Dict, Any
 from datetime import datetime
-
+from datetime import timezone
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
-from infrastructure.config.settings import get_settings
+from researchapi.infrastructure.config.settings import get_settings
 
 
 router = APIRouter()
@@ -42,7 +42,7 @@ async def health_check():
     
     return HealthStatus(
         status="healthy",
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc),
         version=settings.app.app_version,
         environment=settings.app.app_environment,
         services={}
@@ -72,7 +72,7 @@ async def readiness_check():
     return {
         "ready": all_ready,
         "services": services_ready,
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.now(timezone.utc).isoformat()
     }
 
 
@@ -86,7 +86,7 @@ async def liveness_check():
     """
     return {
         "alive": True,
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.now(timezone.utc).isoformat()
     }
 
 
@@ -131,7 +131,7 @@ async def detailed_health_check():
     
     return {
         "status": "healthy",
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "version": settings.app.app_version,
         "environment": settings.app.app_environment,
         "services": {

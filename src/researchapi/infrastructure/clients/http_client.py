@@ -15,14 +15,14 @@ from tenacity import (
     retry_if_exception_type
 )
 
-from core.exceptions import (
+from researchapi.core.exceptions import (
     AdapterConnectionError,
     AdapterTimeoutError,
     AdapterRateLimitError,
     AdapterResponseError
 )
-from core.interfaces import IHTTPClient, ILogger
-from infrastructure.config.settings import HTTPClientSettings
+from researchapi.core.interfaces import IHTTPClient, ILogger
+from researchapi.infrastructure.config.settings import HTTPClientSettings
 
 
 class HTTPClient(IHTTPClient):

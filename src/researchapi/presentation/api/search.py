@@ -1,42 +1,26 @@
 """
-Search API endpoints.
+Search API endpoints - Refactored version.
+
+This module only handles HTTP layer concerns (request/response).
+Business logic is delegated to the service layer.
 """
 
 from typing import List, Optional
 from datetime import datetime
 
-from fastapi import APIRouter, Query, HTTPException
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, Query, HTTPException, Depends
 
-from core.entities import SourceType
+from .schemas import SearchResponse, ArticleResponse
+from .dependencies import (
+    get_search_service,
+    get_article_service
+)
+from researchapi.application.services.search_service import SearchService
+from researchapi.application.services.article_service import ArticleService
 
 
 router = APIRouter()
 
-
-class ArticleResponse(BaseModel):
-    """Article response model for API."""
-    id: Optional[str]
-    title: str
-    source: str
-    doi: Optional[str]
-    url: Optional[str]
-    pdf_url: Optional[str]
-    abstract: Optional[str]
-    authors: List[str]
-    publication_year: Optional[int]
-    journal: Optional[str]
-    keywords: List[str] = []
-
-
-class SearchResponse(BaseModel):
-    """Search response model for API."""
-    query: str
-    total_results: int
-    results: List[ArticleResponse]
-    sources: List[str]
-    execution_time: float
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
 
 
 @router.get("/search", response_model=SearchResponse)
@@ -46,103 +30,149 @@ async def search_articles(
         default=None,
         description="Sources to search (arxiv, cambridge, ieee, springer)"
     ),
-    max_results: int = Query(default=10, ge=1, le=100, description="Maximum results per source"),
+    max_results: int = Query(default=10, ge=1, le=100),
     year_from: Optional[int] = Query(default=None, ge=1900, le=2100),
     year_to: Optional[int] = Query(default=None, ge=1900, le=2100),
+    author: Optional[str] = Query(default=None, description="Filter by author name"),
+    category: Optional[str] = Query(default=None, description="Filter by category"),
+    search_service: SearchService = Depends(get_search_service)
 ):
     """
     Search for academic articles across multiple sources.
     
-    Args:
-        q: Search query string
-        sources: List of sources to search (default: all enabled sources)
-        max_results: Maximum number of results per source
-        year_from: Filter articles from this year onwards
-        year_to: Filter articles up to this year
-        
-    Returns:
-        SearchResponse with articles from all sources
+    Examples:
+        - /search?q=quantum+computing&max_results=5
+        - /search?q=machine+learning&sources=arxiv&category=cs.LG
+        - /search?q=neural+networks&author=Hinton&year_from=2020
     """
-    # This is a placeholder - actual implementation would use the service layer
-    return SearchResponse(
-        query=q,
-        total_results=0,
-        results=[],
-        sources=sources or ["arxiv", "cambridge", "ieee", "springer"],
-        execution_time=0.0
-    )
+    try:
+        result = await search_service.search_multi_source(
+            query=q,
+            sources=sources,
+            max_results=max_results,
+            year_from=year_from,
+            year_to=year_to,
+            author=author,
+            category=category
+        )
+        return result
+        
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Search error: {str(e)}")
 
+
+@router.get("/search/arxiv", response_model=SearchResponse)
+async def search_arxiv(
+    q: str = Query(..., description="Search query", min_length=1, max_length=500),
+    max_results: int = Query(default=10, ge=1, le=100),
+    year_from: Optional[int] = Query(default=None, ge=1900, le=2100),
+    year_to: Optional[int] = Query(default=None, ge=1900, le=2100),
+    author: Optional[str] = Query(default=None),
+    category: Optional[str] = Query(default=None),
+    offset: int = Query(default=0, ge=0),
+    sort_by: Optional[str] = Query(default=None),
+    sort_order: Optional[str] = Query(default="desc"),
+    search_service: SearchService = Depends(get_search_service)
+):
+    """
+    Search arXiv exclusively with advanced options.
+    
+    Examples:
+        - /search/arxiv?q=transformers&category=cs.CL&max_results=20
+        - /search/arxiv?q=reinforcement+learning&author=Sutton
+    """
+    try:
+        result = await search_service.search_arxiv(
+            query=q,
+            max_results=max_results,
+            year_from=year_from,
+            year_to=year_to,
+            author=author,
+            category=category,
+            offset=offset,
+            sort_by=sort_by,
+            sort_order=sort_order
+        )
+        return result
+        
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"ArXiv search error: {str(e)}")
+
+
+# ============================================================================
+# Article Endpoints
+# ============================================================================
 
 @router.get("/article/{source}/{article_id}", response_model=ArticleResponse)
 async def get_article(
     source: str,
-    article_id: str
+    article_id: str,
+    article_service: ArticleService = Depends(get_article_service)
 ):
     """
     Retrieve a specific article by ID from a source.
     
-    Args:
-        source: Source name (arxiv, cambridge, ieee, springer)
-        article_id: Article identifier in the source system
-        
-    Returns:
-        ArticleResponse with article details
+    Examples:
+        - /article/arxiv/1706.03762
+        - /article/arxiv/2301.12345v1
     """
-    # Validate source
     try:
-        SourceType(source.lower())
-    except ValueError:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Invalid source: {source}. Must be one of: arxiv, cambridge, ieee, springer"
-        )
-    
-    # Placeholder implementation
-    raise HTTPException(
-        status_code=501,
-        detail="Article retrieval not yet implemented"
-    )
+        article = await article_service.get_article(source, article_id)
+        
+        if not article:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Article not found: {article_id}"
+            )
+        
+        return article
+        
+    except HTTPException:
+        raise
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error retrieving article: {str(e)}")
 
+
+# ============================================================================
+# Metadata Endpoints
+# ============================================================================
 
 @router.get("/sources")
-async def list_sources():
-    """
-    List all available sources and their status.
-    
-    Returns:
-        Dictionary with source information
-    """
-    from infrastructure.config.settings import get_settings
-    
-    settings = get_settings()
-    
+async def list_sources(
+    search_service: SearchService = Depends(get_search_service)
+):
+    """List all available sources and their status."""
+    return await search_service.list_sources()
+
+
+@router.get("/categories/arxiv")
+async def list_arxiv_categories():
+    """List popular arXiv categories."""
     return {
-        "sources": [
-            {
-                "name": "arxiv",
-                "enabled": settings.features.arxiv_enabled,
-                "requires_api_key": False,
-                "description": "arXiv preprint repository"
+        "categories": {
+            "computer_science": {
+                "cs.AI": "Artificial Intelligence",
+                "cs.CL": "Computation and Language",
+                "cs.CV": "Computer Vision and Pattern Recognition",
+                "cs.LG": "Machine Learning",
+                "cs.NE": "Neural and Evolutionary Computing",
+                "cs.RO": "Robotics",
+                "cs.CR": "Cryptography and Security",
             },
-            {
-                "name": "cambridge",
-                "enabled": settings.features.cambridge_enabled,
-                "requires_api_key": False,
-                "description": "Cambridge University Press"
+            "physics": {
+                "quant-ph": "Quantum Physics",
+                "physics.comp-ph": "Computational Physics",
             },
-            {
-                "name": "ieee",
-                "enabled": settings.features.ieee_enabled,
-                "requires_api_key": True,
-                "configured": settings.api_keys.ieee_api_key is not None,
-                "description": "IEEE Xplore Digital Library"
+            "mathematics": {
+                "math.ST": "Statistics Theory",
+                "math.OC": "Optimization and Control",
             },
-            {
-                "name": "springer",
-                "enabled": settings.features.springer_enabled,
-                "requires_api_key": True,
-                "configured": settings.api_keys.springer_api_key is not None,
-                "description": "Springer Nature"
-            }
-        ]
+        },
+        "documentation": "https://arxiv.org/category_taxonomy"
     }

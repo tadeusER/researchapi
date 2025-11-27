@@ -7,7 +7,7 @@ Framework-independent and part of the core domain.
 
 from abc import ABC, abstractmethod
 from typing import List, Optional, Protocol
-from core.entities import Article, SearchQuery, SearchResult, SourceType
+from researchapi.core.entities import Article, SearchQuery, SearchResult, SourceType
 
 
 class IArticleAdapter(ABC):

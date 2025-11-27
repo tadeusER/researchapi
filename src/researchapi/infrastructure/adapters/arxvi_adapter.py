@@ -8,10 +8,10 @@ from datetime import datetime
 import xml.etree.ElementTree as ET
 from urllib.parse import quote_plus
 
-from core.interfaces import IHTTPClient
-from core.entities import Article, SearchQuery, SearchResult, SourceType, Author
-from core.exceptions import AdapterException
-from adapters.base_adapter import BaseAdapter
+from researchapi.core.interfaces import IHTTPClient
+from researchapi.core.entities import Article, SearchQuery, SearchResult, SourceType, Author
+from researchapi.core.exceptions import AdapterException
+from .base_adapter import BaseAdapter
 import logging
 
 
